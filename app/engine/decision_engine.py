@@ -23,7 +23,8 @@ class DecisionEngine:
         self.local_llm = LocalLLMClient()
         self.openai_client = OpenAIClient()
 
-    async def process(self, content: str, context: dict = {}) -> dict:
+    async def process(self, content: str, context: dict = None) -> dict:
+        context = context or {}
         start = time.time()
         cache_key = f"response:{hashlib.md5(content.lower().strip().encode()).hexdigest()}"
 
