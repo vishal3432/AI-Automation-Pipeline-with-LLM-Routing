@@ -41,7 +41,7 @@ class DecisionEngine:
             }
 
         # 2. Template Engine (fastest, free)
-        template_result = await self.template_engine.match(content, context)
+        template_result = await self.template_engine.process(content, context)
         if template_result["confidence"] >= settings.TEMPLATE_CONFIDENCE_THRESHOLD:
             logger.info(f"Routed via TEMPLATE (conf={template_result['confidence']:.2f})")
             await cache_set(cache_key, template_result["response"], ttl=86400)
