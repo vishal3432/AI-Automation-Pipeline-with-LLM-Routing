@@ -47,13 +47,6 @@ PostgreSQL (logs) + Redis (cache)
 
 ## 🚀 Quick Start
 
-```bash
-git clone <repo>
-cd ai_automation_platform
-chmod +x scripts/start.sh
-./scripts/start.sh
-```
-
 | Service | URL |
 |---|---|
 | API | http://localhost:8000 |
@@ -122,11 +115,6 @@ With default thresholds (template ≥ 0.85, local LLM ≥ 0.70):
 
 ## ⚙️ Configuration
 
-Copy `.env.example` to `.env` and set your credentials:
-
-```bash
-cp .env.example .env
-```
 
 Key settings:
 
@@ -141,14 +129,6 @@ Key settings:
 
 ---
 
-## 🧪 Running Tests
-
-```bash
-pip install -r requirements.txt
-pytest tests/ -v
-```
-
----
 
 ## 📁 Project Structure
 
