@@ -33,7 +33,7 @@ async def receive_message(
 
     task = process_message_task.delay(
         message_id=message_id,
-        channel=payload.channel,
+        channel=payload.channel.value,
         sender_id=payload.sender_id,
         content=payload.content,
         metadata=payload.metadata or {},
