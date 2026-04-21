@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 echo " AI Automation Backend Platform — Setup"
