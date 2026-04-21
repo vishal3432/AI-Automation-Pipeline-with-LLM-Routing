@@ -1,12 +1,12 @@
 from sqlalchemy import Column, String, Float, DateTime, JSON
 from sqlalchemy.sql import func
 from app.core.database import Base
-
+import uuid
 
 class MessageLog(Base):
     __tablename__ = "message_logs"
 
-    id = Column(String, primary_key=True)
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     channel = Column(String, nullable=False)
     sender_id = Column(String, nullable=False, index=True)
     content = Column(String, nullable=False)
