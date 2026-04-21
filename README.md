@@ -1,20 +1,20 @@
-# 🤖 AI Automation Pipeline
+# AI Automation Pipeline
 
  Intelligent backend system for cost-optimized AI request processing using multi-tier LLM routing (Cache → Templates → Local LLM → OpenAI).
 
 ---
 
-## ⚡ Key Highlights
+##  Key Highlights
 
-* 🔥 **85–90% cost reduction** using intelligent routing
-* ⚡ **Sub-second responses** via caching & templates
-* 🧠 **Hybrid AI system** (Local LLM + OpenAI fallback)
-* 🚀 **Async processing** with Celery + Redis
-* 📦 **Production-ready architecture (Dockerized)**
+* **85–90% cost reduction** using intelligent routing
+* **Sub-second responses** via caching & templates
+* **Hybrid AI system** (Local LLM + OpenAI fallback)
+* **Async processing** with Celery + Redis
+* **Production-ready architecture (Dockerized)**
 
 ---
 
-## 🧩 Problem → Solution
+##  Problem → Solution
 
 | Problem                | Solution           |
 | ---------------------- | ------------------ |
@@ -28,17 +28,17 @@
 
 ## 🎥 Demo
 
-### 🔹 API Demo (Swagger)
+### API Demo (Swagger)
 
 ![Swagger Demo](./assets/swagger.png)
 
-### 🔹 Request Flow Demo
+### Request Flow Demo
 
 ![Flow Demo](./assets/flow.gif)
 
 ---
 
-## 🧠 How It Works
+## How It Works
 
 ```text
 Request → FastAPI → Redis → Decision Engine
@@ -48,7 +48,7 @@ Request → FastAPI → Redis → Decision Engine
 
 ---
 
-## 💸 Cost Optimization
+## Cost Optimization
 
 | Tier      | Usage | Cost |
 | --------- | ----- | ---- |
@@ -61,7 +61,7 @@ Request → FastAPI → Redis → Decision Engine
 
 ---
 
-## 📡 API Example
+##  API Example
 
 ```http
 POST /api/v1/messages
@@ -76,7 +76,7 @@ POST /api/v1/messages
 
 ---
 
-## ⚙️ Tech Stack
+##  Tech Stack
 
 * FastAPI
 * Redis
