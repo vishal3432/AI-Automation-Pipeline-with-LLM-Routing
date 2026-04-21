@@ -22,7 +22,8 @@ class LocalLLMClient:
         self.base_url = settings.LOCAL_LLM_URL
         self.model = settings.LOCAL_LLM_MODEL
 
-    async def generate(self, content: str, context: dict = {}) -> dict:
+    async def process(self, content: str, context: dict = None) -> dict:
+        context = context or {}
         prompt = f"{SYSTEM_PROMPT}\n\nUser: {content}\nAssistant:"
 
         async with httpx.AsyncClient(timeout=30.0) as client:
