@@ -49,7 +49,7 @@ class DecisionEngine:
 
         # 3. Local LLM (cheap, ~0 cost)
         try:
-            local_result = await self.local_llm.generate(content, context)
+            local_result = await self.local_llm.process(content, context)
             if local_result["confidence"] >= settings.LOCAL_LLM_CONFIDENCE_THRESHOLD:
                 logger.info(f"Routed via LOCAL_LLM (conf={local_result['confidence']:.2f})")
                 await cache_set(cache_key, local_result["response"], ttl=3600)
@@ -59,7 +59,7 @@ class DecisionEngine:
 
         # 4. OpenAI fallback
         logger.info("Routed via OPENAI")
-        openai_result = await self.openai_client.generate(content, context)
+        openai_result = await self.openai_client.process(content, context)
         await cache_set(cache_key, openai_result["response"], ttl=1800)
         return self._build_result(openai_result, RoutingStrategy.OPENAI, start)
 
