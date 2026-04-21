@@ -33,7 +33,8 @@ class WhatsAppClient:
             logger.info(f"WhatsApp message sent to {to} | id={data.get('messages', [{}])[0].get('id')}")
             return data
 
-    async def send_template(self, to: str, template_name: str, language: str = "en_US", components: list = []) -> dict:
+    async def send_template(self, to: str, template_name: str, language: str = "en_US", components: list = None) -> dict:
+        components = components or []
         url = f"{self.BASE_URL}/{settings.WHATSAPP_PHONE_NUMBER_ID}/messages"
         headers = {
             "Authorization": f"Bearer {settings.WHATSAPP_TOKEN}",
