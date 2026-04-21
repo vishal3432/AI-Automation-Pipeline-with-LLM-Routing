@@ -2,7 +2,8 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional, Literal
 from datetime import datetime
 from enum import Enum
-
+from typing import Optional
+from pydantic import Field
 
 class ChannelType(str, Enum):
     WHATSAPP = "whatsapp"
@@ -21,7 +22,7 @@ class IncomingMessage(BaseModel):
     sender_id: str
     sender_name: Optional[str] = None
     content: str
-    metadata: Optional[dict] = {}
+    metadata: Optional[dict] = Field(default_factory=dict)
 
 
 class ProcessedMessage(BaseModel):
