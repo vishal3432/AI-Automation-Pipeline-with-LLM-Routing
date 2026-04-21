@@ -26,18 +26,6 @@
 
 ---
 
-## 🎥 Demo
-
-### API Demo (Swagger)
-
-![Swagger Demo](./assets/swagger.png)
-
-### Request Flow Demo
-
-![Flow Demo](./assets/flow.gif)
-
----
-
 ## How It Works
 
 ```text
@@ -88,7 +76,7 @@ POST /api/v1/messages
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```bash
 app/
@@ -103,7 +91,7 @@ app/
 
 ---
 
-## 🚀 Run Locally
+## Run Locally
 
 ```bash
 docker-compose up --build
@@ -111,7 +99,7 @@ docker-compose up --build
 
 ---
 
-## 🧪 Features
+## Features
 
 * Multi-tier AI routing
 * Async task processing
@@ -121,7 +109,7 @@ docker-compose up --build
 
 ---
 
-## 🔮 Future Work
+## Future Work
 
 * Workflow builder UI
 * Analytics dashboard
@@ -129,7 +117,7 @@ docker-compose up --build
 
 ---
 
-## 🧠 Key Insight
+## Key Insight
 
 > Designed as a backend-first AI automation system with strong focus on scalability, async processing, and cost efficiency.
 
