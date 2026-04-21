@@ -11,6 +11,8 @@ from app.workers.celery_app import celery_app
 from app.engine.decision_engine import DecisionEngine
 from app.integrations.whatsapp import WhatsAppClient
 from app.integrations.email_client import EmailClient
+from app.models.message_log import MessageLog
+from app.core.database import AsyncSessionLocal
 
 logger = logging.getLogger(__name__)
 
@@ -21,10 +23,6 @@ _email = EmailClient()
 
 def _run(coro):
     """Run async coroutine in a sync Celery worker context."""
-    # BUG FIX: asyncio.get_event_loop() is deprecated in Python 3.10+ when
-    # called from a non-main thread (Celery workers run in threads).
-    # It raises DeprecationWarning and eventually RuntimeError.
-    # Always create a fresh event loop per task to be safe.
     loop = asyncio.new_event_loop()
     try:
         return loop.run_until_complete(coro)
@@ -59,6 +57,24 @@ def process_message_task(self, message_id: str, channel: str, sender_id: str,
         elif channel == "email":
             _run(_email.send(to=sender_id, subject="Re: Your Inquiry", body=response_text))
         # channel == "api": response delivered via task result
+
+        # Save to DB
+        async def _save_log():
+            async with AsyncSessionLocal() as session:
+                log = MessageLog(
+                    id=message_id,
+                    channel=channel,
+                    sender_id=sender_id,
+                    content=content,
+                    response=response_text,
+                    routing_strategy=str(strategy.value if hasattr(strategy, "value") else strategy),
+                    confidence_score=result.get("confidence", 0.0),
+                    processing_time_ms=result["processing_time_ms"],
+                    metadata_=metadata or {},
+                )
+                session.add(log)
+                await session.commit()
+        _run(_save_log())
 
         logger.info(
             f"[{message_id}] Done | strategy={strategy} | "
