@@ -2,12 +2,10 @@ version: "3.9"
 
 services:
 
-  # ─── FastAPI Application ───────────────────────────────────────────────────
+  # FastAPI Application 
   api:
     build:
       context: ..
-      # BUG FIX: Dockerfile is in the project root, not in docker/ folder.
-      # With context: .. the path is relative to context, so just 'Dockerfile'.
       dockerfile: Dockerfile
     container_name: ai_platform_api
     ports:
@@ -18,13 +16,10 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    # BUG FIX: --reload should NOT be used in production — it watches the
-    # filesystem and reloads on changes, which is a security/stability risk.
-    # Use multiple workers instead for production throughput.
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2
     restart: unless-stopped
 
-  # ─── Celery Worker ────────────────────────────────────────────────────────
+  # Celery Worker 
   worker:
     build:
       context: ..
@@ -44,7 +39,7 @@ services:
       --max-tasks-per-child=100
     restart: unless-stopped
 
-  # ─── Celery Flower (Monitor) ──────────────────────────────────────────────
+  # Celery Flower (Monitor) 
   flower:
     build:
       context: ..
@@ -59,7 +54,7 @@ services:
     command: celery -A app.workers.celery_app flower --port=5555
     restart: unless-stopped
 
-  # ─── PostgreSQL ───────────────────────────────────────────────────────────
+  # PostgreSQL
   postgres:
     image: postgres:15-alpine
     container_name: ai_platform_postgres
@@ -78,7 +73,7 @@ services:
       retries: 5
     restart: unless-stopped
 
-  # ─── Redis ────────────────────────────────────────────────────────────────
+  # Redis
   redis:
     image: redis:7-alpine
     container_name: ai_platform_redis
@@ -94,7 +89,7 @@ services:
       retries: 5
     restart: unless-stopped
 
-  # ─── Ollama (Local LLM) ───────────────────────────────────────────────────
+  # Ollama (Local LLM) 
   ollama:
     image: ollama/ollama:latest
     container_name: ai_platform_ollama
@@ -103,8 +98,6 @@ services:
     volumes:
       - ollama_data:/root/.ollama
     restart: unless-stopped
-    # After first startup, pull a model:
-    # docker exec ai_platform_ollama ollama pull mistral
 
 volumes:
   pgdata:
