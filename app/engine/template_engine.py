@@ -67,7 +67,8 @@ TEMPLATES = {
 
 
 class TemplateEngine:
-    async def match(self, content: str, context: dict = {}) -> dict:
+    async def process(self, content: str, context: dict = None) -> dict:
+        context = context or {}
         text = content.lower().strip()
         best_match = {"response": "", "confidence": 0.0}
 
