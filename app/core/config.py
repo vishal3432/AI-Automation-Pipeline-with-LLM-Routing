@@ -8,21 +8,21 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "change-me-in-production"
 
     # Database
-    DATABASE_URL: str = "postgresql+asyncpg://user:password@localhost:5432/ai_platform"
+    DATABASE_URL: str = "postgresql+asyncpg://user:password@postgres:5432/ai_platform"
 
     # Redis
-    REDIS_URL: str = "redis://localhost:6379/0"
+    REDIS_URL: str = "redis://redis:6379/0"
 
     # Celery
-    CELERY_BROKER_URL: str = "redis://localhost:6379/1"
-    CELERY_RESULT_BACKEND: str = "redis://localhost:6379/2"
+    CELERY_BROKER_URL: str = "redis://redis:6379/1"
+    CELERY_RESULT_BACKEND: str = "redis://redis:6379/2"
 
     # OpenAI
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-3.5-turbo"
 
     # Local LLM (Ollama)
-    LOCAL_LLM_URL: str = "http://localhost:11434"
+    LOCAL_LLM_URL: str = "http://ollama:11434"
     LOCAL_LLM_MODEL: str = "mistral"
 
     # WhatsApp
