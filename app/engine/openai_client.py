@@ -21,7 +21,8 @@ class OpenAIClient:
         self.client = openai.AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
         self.model = settings.OPENAI_MODEL
 
-    async def generate(self, content: str, context: dict = {}) -> dict:
+    async def process(self, content: str, context: dict = None) -> dict:
+        context = context or {}
         messages = [{"role": "system", "content": SYSTEM_PROMPT}]
 
         # Inject conversation history if available
