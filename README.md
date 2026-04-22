@@ -17,6 +17,43 @@ Inshort, Intelligent backend system for cost-optimized AI request processing usi
 
 ---
 
+# What is This?
+
+An AI-powered automated reply system that instantly responds to customer messages on WhatsApp, Email, and API — without any human involvement.
+
+---
+
+# How It Works
+
+Every incoming message is routed through 3 AI layers, always picking the cheapest option first:
+Customer Message
+      ↓
+1. Template Match  →  instant reply, zero cost    (greetings, pricing, refunds...)
+      ↓ no match
+2. Local AI (Mistral via Ollama)  →  free reply, runs on your server
+      ↓ low confidence or offline
+3. OpenAI GPT  →  smartest reply, ~$0.002 per message
+
+### Note - Responses are cached in Redis so repeated questions cost nothing twice.
+
+---
+
+# What You Do
+
+Fill in .env with your API keys
+Run ./scripts/start.sh
+Point your WhatsApp webhook to your server
+
+### That's it. Everything else is automatic.
+
+| Channel | How |
+|---------|-----|
+| WhatsApp | Meta webhook → fully automatic |
+| Email | Via SMTP — triggered by API call |
+| API | Direct POST from your app or website |
+
+---
+
 ##  Key Highlights
 
 * **85–90% cost reduction** using intelligent routing
