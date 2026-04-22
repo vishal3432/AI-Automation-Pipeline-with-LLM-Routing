@@ -126,29 +126,6 @@ POST /api/v1/messages
 
 ---
 
-## Project Structure
-
-```bash
-app/
-├── api/
-├── core/
-├── engine/
-├── integrations/
-├── workers/
-├── models/
-└── utils/
-```
-
----
-
-## Run Locally
-
-```bash
-docker-compose up --build
-```
-
----
-
 ## Features
 
 * Multi-tier AI routing
@@ -158,7 +135,6 @@ docker-compose up --build
 * WhatsApp + Email integration
 
 ---
-
 
 ## Key Insight
 
