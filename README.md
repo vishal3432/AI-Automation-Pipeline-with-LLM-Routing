@@ -1,5 +1,5 @@
 # AI Automation Pipeline
-.
+
 It's an AI-powered customer support automation backend. When a customer sends a message (via WhatsApp, email, or API), the system automatically replies using the cheapest AI option available:
 
 
