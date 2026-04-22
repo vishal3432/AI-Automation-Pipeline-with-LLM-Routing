@@ -122,13 +122,6 @@ docker-compose up --build
 
 ---
 
-## Future Work
-
-* Workflow builder UI
-* Analytics dashboard
-* Multi-tenant SaaS
-
----
 
 ## Key Insight
 
