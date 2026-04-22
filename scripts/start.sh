@@ -26,6 +26,11 @@ until docker exec ai_platform_postgres pg_isready -U user -d ai_platform > /dev/
 done
 echo " PostgreSQL is ready"
 
+echo ""
+echo " Running database migrations..."
+docker exec ai_platform_api alembic upgrade head
+echo " Migrations complete"
+
 # 4. Pull Mistral model into Ollama
 echo ""
 echo " Pulling Mistral model into Ollama (this may take a few minutes)..."
