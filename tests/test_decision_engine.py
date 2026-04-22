@@ -16,7 +16,7 @@ def engine():
 @pytest.mark.asyncio
 async def test_template_routing_on_greeting(engine):
     """High-confidence template match should route to TEMPLATE."""
-    with patch.object(engine.template_engine, "match", new_callable=AsyncMock) as mock_t, \
+    with patch.object(engine.template_engine, "process", new_callable=AsyncMock) as mock_t, \
          patch("app.engine.decision_engine.cache_get", return_value=None), \
          patch("app.engine.decision_engine.cache_set", new_callable=AsyncMock):
         mock_t.return_value = {"response": "Hello!", "confidence": 0.95}
@@ -30,8 +30,8 @@ async def test_template_routing_on_greeting(engine):
 @pytest.mark.asyncio
 async def test_local_llm_routing_on_medium_confidence(engine):
     """Medium template confidence → escalate to Local LLM."""
-    with patch.object(engine.template_engine, "match", new_callable=AsyncMock) as mock_t, \
-         patch.object(engine.local_llm, "generate", new_callable=AsyncMock) as mock_l, \
+    with patch.object(engine.template_engine, "process", new_callable=AsyncMock) as mock_t, \
+         patch.object(engine.local_llm, "process", new_callable=AsyncMock) as mock_l, \
          patch("app.engine.decision_engine.cache_get", return_value=None), \
          patch("app.engine.decision_engine.cache_set", new_callable=AsyncMock):
         mock_t.return_value = {"response": "", "confidence": 0.4}
@@ -45,9 +45,9 @@ async def test_local_llm_routing_on_medium_confidence(engine):
 @pytest.mark.asyncio
 async def test_openai_fallback_when_local_llm_fails(engine):
     """If local LLM raises exception, fall back to OpenAI."""
-    with patch.object(engine.template_engine, "match", new_callable=AsyncMock) as mock_t, \
-         patch.object(engine.local_llm, "generate", side_effect=Exception("Ollama offline")), \
-         patch.object(engine.openai_client, "generate", new_callable=AsyncMock) as mock_o, \
+    with patch.object(engine.template_engine, "process", new_callable=AsyncMock) as mock_t, \
+         patch.object(engine.local_llm, "process", side_effect=Exception("Ollama offline")), \
+         patch.object(engine.openai_client, "process", new_callable=AsyncMock) as mock_o, \
          patch("app.engine.decision_engine.cache_get", return_value=None), \
          patch("app.engine.decision_engine.cache_set", new_callable=AsyncMock):
         mock_t.return_value = {"response": "", "confidence": 0.1}
@@ -62,7 +62,7 @@ async def test_openai_fallback_when_local_llm_fails(engine):
 async def test_cache_hit_skips_engines(engine):
     """Cached response should be returned immediately without calling any engine."""
     with patch("app.engine.decision_engine.cache_get", return_value="Cached response"), \
-         patch.object(engine.template_engine, "match", new_callable=AsyncMock) as mock_t:
+         patch.object(engine.template_engine, "process", new_callable=AsyncMock) as mock_t:
         result = await engine.process("hello")
 
     mock_t.assert_not_called()
@@ -73,7 +73,7 @@ async def test_cache_hit_skips_engines(engine):
 @pytest.mark.asyncio
 async def test_processing_time_is_recorded(engine):
     """Processing time should always be present in result."""
-    with patch.object(engine.template_engine, "match", new_callable=AsyncMock) as mock_t, \
+    with patch.object(engine.template_engine, "process", new_callable=AsyncMock) as mock_t, \
          patch("app.engine.decision_engine.cache_get", return_value=None), \
          patch("app.engine.decision_engine.cache_set", new_callable=AsyncMock):
         mock_t.return_value = {"response": "Hi!", "confidence": 0.95}
