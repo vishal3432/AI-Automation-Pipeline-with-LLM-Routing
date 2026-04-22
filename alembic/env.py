@@ -6,7 +6,7 @@ from sqlalchemy import engine_from_config, pool
 from alembic import context
 
 # Ensure app is importable
-sys.path.append(os.getcwd())
+sys.path.insert(0, os.getcwd())
 
 from app.core.config import settings
 from app.core.database import Base
@@ -18,10 +18,10 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# 👇 IMPORTANT: metadata for autogenerate
+# metadata for autogenerate
 target_metadata = Base.metadata
 
-# 👇 Convert async DB URL → sync (Alembic needs sync driver)
+# Convert async DB URL → sync (Alembic needs sync driver)
 DATABASE_URL = settings.DATABASE_URL.replace("+asyncpg", "")
 
 
