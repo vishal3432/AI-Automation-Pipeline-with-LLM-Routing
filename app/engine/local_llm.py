@@ -44,9 +44,11 @@ class LocalLLMClient:
             data = response.json()
 
             text = data.get("response", "").strip()
+            word_count = len(text.split())
+            confidence = min(0.90, 0.60 + (word_count / 100))
             return {
                 "response": text,
-                "confidence": 0.75,
+                "confidence": confidence,
                 "model": self.model,
                 "eval_count": data.get("eval_count", 0),
             }
