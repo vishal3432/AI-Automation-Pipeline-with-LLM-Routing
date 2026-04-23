@@ -5,7 +5,7 @@ from typing import List
 class Settings(BaseSettings):
     APP_NAME: str = "AI Automation Platform"
     DEBUG: bool = False
-    SECRET_KEY: str = "change-me-in-production"
+    SECRET_KEY: str 
 
     # Database
     DATABASE_URL: str = "postgresql+asyncpg://user:password@postgres:5432/ai_platform"
@@ -47,8 +47,8 @@ class Settings(BaseSettings):
     TEMPLATE_CONFIDENCE_THRESHOLD: float = 0.85
     LOCAL_LLM_CONFIDENCE_THRESHOLD: float = 0.70
 
-    ALLOWED_ORIGINS: List[str] = ["*"]
-    ALLOWED_HOSTS: List[str] = ["*"]
+    ALLOWED_ORIGINS: List[str] = ["https://yourdomain.com"]
+    ALLOWED_HOSTS: List[str] = ["yourdomain.com", "localhost"]
 
     class Config:
         env_file = ".env"
