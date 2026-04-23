@@ -23,7 +23,7 @@ async def health_check(redis=Depends(get_redis)):
     except Exception:
         pass
 
-    all_ok = redis_ok
+    all_ok = redis_ok and local_llm_ok
     return {
         "status": "healthy" if all_ok else "degraded",
         "components": {
