@@ -15,6 +15,27 @@ The stack is: FastAPI (API) + Celery (async task queue) + Redis (cache + queue) 
 
 Inshort, Intelligent backend system for cost-optimized AI request processing using multi-tier LLM routing (Cache → Templates → Local LLM → OpenAI)
 
+## Live Demo
+
+- API Docs: https://ai-automation-pipeline-with-llm-routing-production.up.railway.app/docs
+
+- Health Check: https://ai-automation-pipeline-with-llm-routing-production.up.railway.app/api/v1/health
+
+
+## Deployment
+
+Deployed on Railway with:
+
+- FastAPI + Uvicorn
+
+- PostgreSQL (Railway plugin)
+
+- Redis (Railway plugin)
+
+- Groq (LLaMA3) as cloud LLM backend
+
+- Ollama/Mistral supported for self-hosted deployments
+
 ---
 
 # What is This?
