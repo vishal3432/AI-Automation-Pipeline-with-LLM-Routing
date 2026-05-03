@@ -115,24 +115,10 @@ Request → FastAPI → Redis → Decision Engine
 | Local LLM | ~15%  | ~$0  |
 | OpenAI    | ~5%   | Paid |
 
-👉 **85%+ cost savings vs direct OpenAI**
+👉 **70%+ cost savings vs direct OpenAI**
 
 ---
 
-##  API Example
-
-```http
-POST /api/v1/messages
-```
-
-```json
-{
-  "content": "pricing details",
-  "sender_id": "user_1"
-}
-```
-
----
 
 ##  Tech Stack
 
